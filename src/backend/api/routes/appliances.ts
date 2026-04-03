@@ -37,7 +37,7 @@ const getApplianceByIdRoute = createRoute({
   summary: 'Get an appliance by ID',
   request: {
     params: z.object({
-      id: z.string().openapi({ example: '1' }),
+      id: z.coerce.number().openapi({ example: 1 }),
     }),
   },
   responses: {
