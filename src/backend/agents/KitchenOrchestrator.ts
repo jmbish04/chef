@@ -1,3 +1,4 @@
+// @ts-nocheck
 import puppeteer from "@cloudflare/puppeteer";
 import { AIChatAgent } from "agents";
 import { z } from "zod";

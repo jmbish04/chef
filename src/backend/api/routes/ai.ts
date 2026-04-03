@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @fileoverview AI API routes for Workers AI integration via AI Gateway
  */

@@ -20,7 +20,7 @@ export default function InventoryScanner() {
     try {
       const res = await fetch("/api/inventory");
       const data = await res.json();
-      setItems(data);
+      setItems(data as InventoryItem[]);
     } catch (e) {
       console.error(e);
     }

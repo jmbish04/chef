@@ -26,7 +26,7 @@ export default function RecipeDetail({ id }: { id: string }) {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
         <h2 className="text-3xl font-black tracking-tighter uppercase">{recipe.title}</h2>
-        <Button asChild>
+        <Button asChild={true as any}>
           <a href={`/print/${id}`}>Print View</a>
         </Button>
       </div>

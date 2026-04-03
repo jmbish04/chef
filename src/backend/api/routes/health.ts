@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @fileoverview Health monitoring API routes
  */

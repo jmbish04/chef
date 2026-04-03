@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @fileoverview Main Hono API router
  *

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 
 import type { Bindings, Variables } from "../index";

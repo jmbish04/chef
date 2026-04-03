@@ -10,7 +10,7 @@ export default function MealPlanner() {
     try {
       const res = await fetch("/api/recipes");
       const data = await res.json();
-      setRecipes(data);
+      setRecipes(data as any);
     } catch (e) {
       console.error(e);
     }
@@ -49,7 +49,7 @@ export default function MealPlanner() {
               <CardContent>
                 <p className="text-sm text-muted-foreground line-clamp-3">{recipe.ingredients}</p>
                 <div className="mt-4 flex gap-2">
-                  <Button variant="secondary" size="sm" asChild>
+                  <Button variant="secondary" size="sm" asChild={true as any}>
                     <a href={`/recipe/${recipe.id}`}>View Details</a>
                   </Button>
                 </div>

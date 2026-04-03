@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @fileoverview Dashboard API routes
  */

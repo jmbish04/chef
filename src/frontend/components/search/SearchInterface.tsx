@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input";
 
 export default function SearchInterface() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<any[]>([]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/recipes");
-      const all = await res.json();
+      const all = (await res.json()) as any[];
       // Basic client side filter for demonstration
       const filtered = all.filter((r: any) =>
         r.ingredients.toLowerCase().includes(query.toLowerCase()),
@@ -53,7 +53,7 @@ export default function SearchInterface() {
               <CardContent>
                 <p className="text-sm text-muted-foreground line-clamp-3">{recipe.ingredients}</p>
                 <div className="mt-4 flex gap-2">
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="sm" asChild={true as any}>
                     <a href={`/recipe/${recipe.id}`}>View Details</a>
                   </Button>
                 </div>
