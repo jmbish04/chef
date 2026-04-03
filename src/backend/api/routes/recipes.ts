@@ -71,8 +71,8 @@ const createRecipeRoute = createRoute({
       'application/json': {
         schema: z.object({
           title: z.string(),
-          ingredients: z.string(),
-          genericSteps: z.string(),
+          ingredients: z.array(z.string()),
+          genericSteps: z.array(z.string()),
         }),
       },
     },
