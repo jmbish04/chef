@@ -37,7 +37,7 @@ const getApplianceByIdRoute = createRoute({
   summary: 'Get an appliance by ID',
   request: {
     params: z.object({
-      id: z.coerce.number().openapi({ example: 1 }),
+      id: z.string().openapi({ example: '1' }),
     }),
   },
   responses: {
@@ -52,7 +52,7 @@ const getApplianceByIdRoute = createRoute({
 });
 
 appliancesRouter.openapi(getApplianceByIdRoute, async (c) => {
-  const { id } = c.req.valid('param');
+  const id = parseInt(c.req.param('id'), 10);
   const db = drizzle(c.env.DB);
   const result = await db.select().from(appliances).where(eq(appliances.id, id));
   if (result.length === 0) {

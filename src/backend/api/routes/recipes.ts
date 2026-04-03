@@ -9,9 +9,9 @@ export const recipesRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Va
 const RecipeSchema = z.object({
   id: z.number().openapi({ example: 1 }),
   title: z.string().openapi({ example: 'Pancakes' }),
-  ingredients: z.array(z.string()).openapi({ example: ["flour", "eggs", "milk"] }),
-  genericSteps: z.array(z.string()).openapi({ example: ["mix", "cook"] }),
-  createdAt: z.string().datetime().openapi({ example: '2023-01-01T00:00:00Z' }),
+  ingredients: z.string().openapi({ example: '["flour", "eggs", "milk"]' }),
+  genericSteps: z.string().openapi({ example: '["mix", "cook"]' }),
+  createdAt: z.any().openapi({ example: '2023-01-01T00:00:00Z' }),
 });
 
 const getRecipesRoute = createRoute({
@@ -71,8 +71,8 @@ const createRecipeRoute = createRoute({
       'application/json': {
         schema: z.object({
           title: z.string(),
-          ingredients: z.array(z.string()),
-          genericSteps: z.array(z.string()),
+          ingredients: z.string(),
+          genericSteps: z.string(),
         }),
       },
     },
