@@ -1,0 +1,9 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RecipeDetail from '@/components/recipe/RecipeDetail';
+
+const { id } = Astro.params;
+---
+<BaseLayout title="Recipe Detail">
+  <RecipeDetail id={id} client:load />
+</BaseLayout>

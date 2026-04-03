@@ -28,7 +28,23 @@ export default function AppLayout({ title, children }: { title: string, children
                         <a href="/orchestrator">Orchestrator</a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  </SidebarMenu>
+
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <a href="/inventory">Inventory</a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <a href="/search">Reverse Search</a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <a href="/plan">Meal Planner</a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+</SidebarMenu>
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
