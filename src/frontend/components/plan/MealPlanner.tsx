@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
 export default function MealPlanner() {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = async () => {
     try {
-      const res = await fetch('/api/recipes');
+      const res = await fetch("/api/recipes");
       const data = await res.json();
       setRecipes(data);
     } catch (e) {
@@ -29,16 +30,20 @@ export default function MealPlanner() {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Daily Meal Planner</h2>
-        <Button onClick={handleFeelingLucky} variant="outline">I'm Feeling Lucky</Button>
+        <Button onClick={handleFeelingLucky} variant="outline">
+          I'm Feeling Lucky
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {recipes.slice(0, 3).map((recipe: any, index: number) => {
-          const meals = ['Breakfast', 'Lunch', 'Dinner'];
+          const meals = ["Breakfast", "Lunch", "Dinner"];
           return (
             <Card key={recipe.id}>
               <CardHeader>
-                <CardDescription className="uppercase tracking-widest font-bold text-xs">{meals[index]}</CardDescription>
+                <CardDescription className="uppercase tracking-widest font-bold text-xs">
+                  {meals[index]}
+                </CardDescription>
                 <CardTitle>{recipe.title}</CardTitle>
               </CardHeader>
               <CardContent>

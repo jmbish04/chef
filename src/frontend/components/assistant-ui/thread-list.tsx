@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import type { FC } from "react";
+
 import {
   AuiIf,
   ThreadListItemMorePrimitive,
@@ -7,7 +7,9 @@ import {
   ThreadListPrimitive,
 } from "@assistant-ui/react";
 import { ArchiveIcon, MoreHorizontalIcon, PlusIcon } from "lucide-react";
-import type { FC } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ThreadList: FC = () => {
   return (
@@ -17,9 +19,7 @@ export const ThreadList: FC = () => {
         <ThreadListSkeleton />
       </AuiIf>
       <AuiIf condition={({ threads }) => !threads.isLoading}>
-        <ThreadListPrimitive.Items>
-          {() => <ThreadListItem />}
-        </ThreadListPrimitive.Items>
+        <ThreadListPrimitive.Items>{() => <ThreadListItem />}</ThreadListPrimitive.Items>
       </AuiIf>
     </ThreadListPrimitive.Root>
   );

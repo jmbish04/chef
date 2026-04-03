@@ -1,19 +1,19 @@
 "use client";
 
 import "@assistant-ui/react-markdown/styles/dot.css";
-
 import {
   type CodeHeaderProps,
   MarkdownTextPrimitive,
   unstable_memoizeMarkdownComponents as memoizeMarkdownComponents,
   useIsMarkdownCodeBlock,
 } from "@assistant-ui/react-markdown";
-import remarkGfm from "remark-gfm";
-import { type FC, memo, useState } from "react";
 import { CheckIcon, CopyIcon } from "lucide-react";
+import { type FC, memo, useState } from "react";
+import remarkGfm from "remark-gfm";
+
+import { cn } from "@/lib/utils";
 
 import { TooltipIconButton } from "./tooltip-icon-button";
-import { cn } from "@/lib/utils";
 
 const MarkdownTextImpl = () => {
   return (
@@ -105,28 +105,19 @@ const defaultComponents = memoizeMarkdownComponents({
   ),
   h5: ({ className, ...props }) => (
     <h5
-      className={cn(
-        "aui-md-h5 mt-2 mb-1 font-medium text-sm first:mt-0 last:mb-0",
-        className,
-      )}
+      className={cn("aui-md-h5 mt-2 mb-1 font-medium text-sm first:mt-0 last:mb-0", className)}
       {...props}
     />
   ),
   h6: ({ className, ...props }) => (
     <h6
-      className={cn(
-        "aui-md-h6 mt-2 mb-1 font-medium text-sm first:mt-0 last:mb-0",
-        className,
-      )}
+      className={cn("aui-md-h6 mt-2 mb-1 font-medium text-sm first:mt-0 last:mb-0", className)}
       {...props}
     />
   ),
   p: ({ className, ...props }) => (
     <p
-      className={cn(
-        "aui-md-p my-2.5 leading-normal first:mt-0 last:mb-0",
-        className,
-      )}
+      className={cn("aui-md-p my-2.5 leading-normal first:mt-0 last:mb-0", className)}
       {...props}
     />
   ),
@@ -167,10 +158,7 @@ const defaultComponents = memoizeMarkdownComponents({
     />
   ),
   hr: ({ className, ...props }) => (
-    <hr
-      className={cn("aui-md-hr my-2 border-muted-foreground/20", className)}
-      {...props}
-    />
+    <hr className={cn("aui-md-hr my-2 border-muted-foreground/20", className)} {...props} />
   ),
   table: ({ className, ...props }) => (
     <table
@@ -212,10 +200,7 @@ const defaultComponents = memoizeMarkdownComponents({
     <li className={cn("aui-md-li leading-normal", className)} {...props} />
   ),
   sup: ({ className, ...props }) => (
-    <sup
-      className={cn("aui-md-sup [&>a]:text-xs [&>a]:no-underline", className)}
-      {...props}
-    />
+    <sup className={cn("aui-md-sup [&>a]:text-xs [&>a]:no-underline", className)} {...props} />
   ),
   pre: ({ className, ...props }) => (
     <pre

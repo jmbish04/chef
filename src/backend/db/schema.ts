@@ -5,8 +5,8 @@
  * It includes tables for authentication, dashboard metrics, AI threads, and system health.
  */
 
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
+import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 
 /**
  * Users table for authentication
@@ -141,8 +141,8 @@ export const documents = sqliteTable("documents", {
 export const recipes = sqliteTable("recipes", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
-  ingredients: text("ingredients", { mode: 'json' }).notNull(),
-  genericSteps: text("generic_steps", { mode: 'json' }).notNull(),
+  ingredients: text("ingredients", { mode: "json" }).notNull(),
+  genericSteps: text("generic_steps", { mode: "json" }).notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),

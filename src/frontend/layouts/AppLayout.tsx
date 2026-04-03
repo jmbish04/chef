@@ -1,8 +1,26 @@
-import React from 'react';
-import { SidebarProvider, SidebarTrigger, Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import React from "react";
 
-export default function AppLayout({ title, children }: { title: string, children: React.ReactNode }) {
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+} from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
+
+export default function AppLayout({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <TooltipProvider>
       <SidebarProvider>
@@ -44,7 +62,7 @@ export default function AppLayout({ title, children }: { title: string, children
                         <a href="/plan">Meal Planner</a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-</SidebarMenu>
+                  </SidebarMenu>
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
@@ -56,9 +74,7 @@ export default function AppLayout({ title, children }: { title: string, children
                 <h1 className="text-lg font-semibold">{title}</h1>
               </div>
             </header>
-            <main className="flex-1 overflow-y-auto p-4 md:p-6">
-              {children}
-            </main>
+            <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
           </div>
         </div>
       </SidebarProvider>

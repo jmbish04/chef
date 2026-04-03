@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeSVG } from "qrcode.react";
+import React, { useEffect, useState } from "react";
 
 export default function PrintQR({ recipeId }: { recipeId: string }) {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
-    setUrl(window.location.origin + '/print/' + recipeId);
+    setUrl(window.location.origin + "/print/" + recipeId);
   }, [recipeId]);
 
   if (!url) return null;

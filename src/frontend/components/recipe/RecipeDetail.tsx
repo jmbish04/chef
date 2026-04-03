@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function RecipeDetail({ id }: { id: string }) {
   const [recipe, setRecipe] = useState<any>(null);
@@ -9,7 +10,7 @@ export default function RecipeDetail({ id }: { id: string }) {
     const fetchRecipe = async () => {
       try {
         const res = await fetch(`/api/recipes/${id}`);
-        if (!res.ok) throw new Error('Failed to fetch');
+        if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setRecipe(data);
       } catch (e) {
@@ -36,7 +37,9 @@ export default function RecipeDetail({ id }: { id: string }) {
             <CardTitle>Ingredients</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="whitespace-pre-wrap font-mono text-sm leading-relaxed">{recipe.ingredients}</p>
+            <p className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
+              {recipe.ingredients}
+            </p>
           </CardContent>
         </Card>
 
@@ -45,7 +48,9 @@ export default function RecipeDetail({ id }: { id: string }) {
             <CardTitle>Generic Steps</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="whitespace-pre-wrap font-mono text-sm leading-relaxed">{recipe.genericSteps}</p>
+            <p className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
+              {recipe.genericSteps}
+            </p>
           </CardContent>
         </Card>
       </div>
