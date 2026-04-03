@@ -52,7 +52,7 @@ const getApplianceByIdRoute = createRoute({
 });
 
 appliancesRouter.openapi(getApplianceByIdRoute, async (c) => {
-  const id = parseInt(c.req.param('id'), 10);
+  const { id } = c.req.valid('param');
   const db = drizzle(c.env.DB);
   const result = await db.select().from(appliances).where(eq(appliances.id, id));
   if (result.length === 0) {
