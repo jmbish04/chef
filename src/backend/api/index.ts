@@ -20,6 +20,7 @@ import { documentsRouter } from './routes/documents';
 import { openapiRouter } from './routes/openapi';
 import { recipesRouter } from './routes/recipes';
 import { appliancesRouter } from './routes/appliances';
+import { agentRouter } from './routes/agent';
 
 export type Bindings = {
   DB: D1Database;
@@ -59,6 +60,7 @@ app.route('/api/ai', aiRouter);
 app.route('/api/documents', documentsRouter);
 app.route('/api/recipes', recipesRouter);
 app.route('/api/appliances', appliancesRouter);
+app.route('/api/agent', agentRouter);
 // We might keep openapiRouter, but usually OpenAPIHono handles doc gen natively.
 app.route('/', openapiRouter);
 

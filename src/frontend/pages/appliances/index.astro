@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Appliance Garage">
+  <div class="space-y-4">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-bold tracking-tight">Appliance Garage</h2>
+    </div>
+
+    <div class="rounded-xl border bg-card text-card-foreground shadow p-6">
+      <h3 class="font-semibold leading-none tracking-tight mb-4">Add Appliance / Upload Manual</h3>
+      <form id="appliance-form" class="space-y-4 max-w-md">
+        <div class="space-y-2">
+          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Appliance Name</label>
+          <input type="text" id="app_name" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="e.g. Tokit Omni Cook" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Model</label>
+          <input type="text" id="app_model" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="e.g. TC1000" />
+        </div>
+
+        <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
+          Save Appliance
+        </button>
+      </form>
+    </div>
+
+    <h3 class="font-semibold leading-none tracking-tight mt-8 mb-4">My Appliances</h3>
+    <div id="appliance-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Populated by JS */}
+    </div>
+  </div>
+
+  <script>
+    async function loadAppliances() {
+      try {
+        const res = await fetch('/api/appliances');
+        const apps = await res.json();
+        const list = document.getElementById('appliance-list');
+        if (!list) return;
+
+        list.innerHTML = apps.map(app => `
+          <div class="rounded-xl border bg-card text-card-foreground shadow p-4 flex flex-col gap-2">
+            <h4 class="font-semibold">${app.name}</h4>
+            <p class="text-sm text-muted-foreground">Model: ${app.model}</p>
+          </div>
+        `).join('');
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('appliance-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('app_name').value;
+      const model = document.getElementById('app_model').value;
+
+      try {
+        await fetch('/api/appliances', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, model })
+        });
+        e.target.reset();
+        loadAppliances();
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadAppliances);
+  </script>
+</BaseLayout>

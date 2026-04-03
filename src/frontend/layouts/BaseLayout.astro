@@ -1,41 +1,25 @@
 ---
-import { cn } from "@/lib/utils";
+import '@/styles/global.css'
+import AppLayout from './AppLayout';
 
-import HeadSEO from "@/components/HeadSEO.astro";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+interface Props {
+  title: string;
+}
 
-const { title, description, ogImage } = Astro.props;
+const { title } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
-    <HeadSEO title={title} description={description} ogImage={ogImage} />
-    <script is:inline>
-      (() => {
-        try {
-          const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-          ).matches;
-          const dark = stored ? stored === "dark" : prefersDark;
-          document.documentElement.classList.toggle("dark", dark);
-        } catch {}
-      })();
-    </script>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
   </head>
-  <body
-    class={cn(
-      "group/body overscroll-none antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
-    )}
-  >
-    <div class="bg-background relative z-10 flex min-h-svh flex-col">
-      <Header client:load />
-      <main class="flex flex-1 flex-col">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+  <body class="min-h-screen bg-background font-sans antialiased text-foreground">
+    <AppLayout client:load title={title}>
+      <slot />
+    </AppLayout>
   </body>
 </html>
