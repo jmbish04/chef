@@ -1,0 +1,73 @@
+---
+import PrintQR from '@/components/print/PrintQR';
+
+// Generate dynamic route paths if using static output, but we use server output so this is dynamic
+const { id } = Astro.params;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Print Recipe</title>
+    <style>
+      /* High contrast B/W thermal print styles for 80mm */
+      @page {
+        margin: 0;
+        size: 80mm auto;
+      }
+      body {
+        font-family: monospace;
+        color: black;
+        background: white;
+        width: 80mm;
+        margin: 0 auto;
+        padding: 4mm;
+        box-sizing: border-box;
+      }
+      h1 { font-size: 1.5rem; text-align: center; border-bottom: 2px dashed black; padding-bottom: 4mm; margin-bottom: 4mm; }
+      h2 { font-size: 1.2rem; margin-top: 4mm; margin-bottom: 2mm; text-decoration: underline; }
+      p, li { font-size: 0.9rem; line-height: 1.4; }
+      .text-center { text-align: center; }
+      .mt-4 { margin-top: 4mm; }
+      /* Hide elements not meant for print if any */
+      @media print {
+        .no-print { display: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="recipe-content">
+      <h1 class="text-center">Loading Recipe...</h1>
+    </div>
+
+    <div class="text-center mt-4">
+      <PrintQR recipeId={id} client:load />
+    </div>
+
+    <script define:vars={{ recipeId: id }}>
+      async function loadRecipe() {
+        try {
+          const res = await fetch(`/api/recipes/${recipeId}`);
+          if (!res.ok) throw new Error('Failed to fetch');
+          const recipe = await res.json();
+
+          const content = document.getElementById('recipe-content');
+          content.innerHTML = `
+            <h1>${recipe.title}</h1>
+            <h2>Ingredients</h2>
+            <p>${recipe.ingredients}</p>
+            <h2>Steps</h2>
+            <p>${recipe.genericSteps}</p>
+          `;
+
+          // Auto trigger print dialog after load
+          setTimeout(() => window.print(), 500);
+        } catch (e) {
+          document.getElementById('recipe-content').innerHTML = `<h1>Recipe Not Found</h1>`;
+        }
+      }
+      loadRecipe();
+    </script>
+  </body>
+</html>

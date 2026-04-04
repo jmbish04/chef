@@ -1,12 +1,49 @@
 ---
-import { ComponentExample } from "@/components/ComponentExample";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { siteConfig } from "@/lib/config";
+import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
+<BaseLayout title="Recipes">
+  <div class="space-y-4">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-bold tracking-tight">Recipe Rolodex</h2>
+      <a href="/orchestrator" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+        Ask Orchestrator
+      </a>
+    </div>
+    <div id="recipe-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Client-side fetch will populate this, or we can use Astro's fetch */}
+    </div>
+  </div>
 
-<BaseLayout
-  title={siteConfig.name}
-  description={siteConfig.description}
->
-  <ComponentExample client:load />
+  <script>
+    async function loadRecipes() {
+      try {
+        const res = await fetch('/api/recipes');
+        if (!res.ok) throw new Error('Failed to fetch recipes');
+        const recipes = await res.json();
+
+        const gallery = document.getElementById('recipe-gallery');
+        if (!gallery) return;
+
+        gallery.innerHTML = recipes.map(recipe => `
+          <div class="rounded-xl border bg-card text-card-foreground shadow">
+            <div class="p-6 flex flex-col gap-2">
+              <h3 class="font-semibold leading-none tracking-tight">${recipe.title}</h3>
+              <p class="text-sm text-muted-foreground line-clamp-2">${recipe.ingredients}</p>
+              <div class="flex mt-4 gap-2">
+                <a href="/print/${recipe.id}" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">Print</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        if (recipes.length === 0) {
+          gallery.innerHTML = '<p class="text-muted-foreground col-span-full">No recipes found. Seed the database!</p>';
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadRecipes);
+  </script>
 </BaseLayout>

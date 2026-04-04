@@ -116,4 +116,27 @@
       "secret_name": "OPENAI_API_KEY",
     },
   ],
+  "vectorize": [
+    {
+      "binding": "MANUALS_INDEX",
+      "index_name": "manuals-index",
+    },
+  ],
+  "browser": {
+    "binding": "BROWSER",
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "KitchenOrchestrator",
+        "class_name": "KitchenOrchestrator",
+      },
+    ],
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["KitchenOrchestrator"],
+    },
+  ],
 }

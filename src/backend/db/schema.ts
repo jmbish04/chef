@@ -5,8 +5,8 @@
  * It includes tables for authentication, dashboard metrics, AI threads, and system health.
  */
 
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
+import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 
 /**
  * Users table for authentication
@@ -133,4 +133,37 @@ export const documents = sqliteTable("documents", {
   updatedAt: integer("updated_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),
+});
+
+/**
+ * Recipes table
+ */
+export const recipes = sqliteTable("recipes", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  ingredients: text("ingredients", { mode: "json" }).notNull(),
+  genericSteps: text("generic_steps", { mode: "json" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+/**
+ * Appliances table
+ */
+export const appliances = sqliteTable("appliances", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  model: text("model").notNull(),
+  manualVectorId: text("manual_vector_id"),
+});
+
+/**
+ * Inventory table
+ */
+export const inventory = sqliteTable("inventory", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  barcode: text("barcode").notNull().unique(),
+  itemName: text("item_name").notNull(),
+  quantity: integer("quantity").notNull().default(0),
 });
