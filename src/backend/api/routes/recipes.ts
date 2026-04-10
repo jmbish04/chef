@@ -9,7 +9,7 @@ import { recipes } from "../../db/schema";
 
 export const recipesRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-const RecipeSchema = z.object({
+const _RecipeSchema = z.object({
   id: z.number().openapi({ example: 1 }),
   title: z.string().openapi({ example: "Pancakes" }),
   ingredients: z.string().openapi({ example: '["flour", "eggs", "milk"]' }),

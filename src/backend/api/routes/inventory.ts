@@ -9,7 +9,7 @@ import { inventory } from "../../db/schema";
 
 export const inventoryRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-const InventorySchema = z.object({
+const _InventorySchema = z.object({
   id: z.number().openapi({ example: 1 }),
   barcode: z.string().openapi({ example: "1234567890" }),
   itemName: z.string().openapi({ example: "Tomato Ketchup" }),

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import puppeteer from "@cloudflare/puppeteer";
 import { AIChatAgent } from "agents";
-import { z } from "zod";
 
 import type { Bindings } from "../api/index";
 
@@ -51,7 +50,7 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
 
   async query_appliance_instructions({
     query,
-    appliance_id,
+    _appliance_id,
   }: {
     query: string;
     appliance_id: string;
