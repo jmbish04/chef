@@ -1,0 +1,110 @@
+{
+  "project_name": "ChefOS Retrofit",
+  "generated_date": "2026-04-09T21:00:00Z",
+  "total_phases": 7,
+  "phases": [
+    {
+      "phase_number": 1,
+      "phase_title": "Project Scaffolding",
+      "description": "Initialize Worker, Astro, and standardized configs.",
+      "success_criteria": ["Project builds and deploys to workers.dev with dark theme dashboard"],
+      "tasks": [
+        {
+          "task_number": 1,
+          "status": "not_started",
+          "agent_assigned": "Architect",
+          "task_title": "Initialize Environment",
+          "cloudflare_docs_queries": ["latest wrangler worker assets configuration", "astro cloudflare adapter worker assets setup"],
+          "steps": [
+            {
+              "number": 1.1,
+              "title": "Config Setup",
+              "technical_requirements": ["Create wrangler.jsonc with assets and nodejs_compat", "Setup pnpm with mandatory scripts"],
+              "success_criteria": ["wrangler types generates worker-configuration.d.ts"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase_number": 2,
+      "phase_title": "Relational Database Layer",
+      "description": "Implement the modular Drizzle schema for recipes and appliances.",
+      "success_criteria": ["Migrations apply successfully to D1 remote"],
+      "tasks": [
+        {
+          "task_number": 2,
+          "status": "not_started",
+          "agent_assigned": "Architect",
+          "task_title": "Modular Schema Implementation",
+          "steps": [
+            {
+              "number": 2.1,
+              "title": "Recipe Module",
+              "technical_requirements": ["Create src/backend/db/schemas/recipes/ recipes.ts, ingredients.ts, instructions.ts"],
+              "success_criteria": ["Foreign keys correctly link ingredients to recipes"]
+            },
+            {
+              "number": 2.2,
+              "title": "Appliance Module",
+              "technical_requirements": ["Create src/backend/db/schemas/appliances/appliances.ts"],
+              "success_criteria": ["Table includes model and brand for RAG lookup"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase_number": 3,
+      "phase_title": "AI & RAG Infrastructure",
+      "description": "Setup Vectorize and the Kitchen Orchestrator Agent.",
+      "success_criteria": ["Agent can retrieve appliance manual chunks and rewrite steps"],
+      "tasks": [
+        {
+          "task_number": 3,
+          "status": "not_started",
+          "agent_assigned": "AI/Agent",
+          "task_title": "Appliance RAG Service",
+          "cloudflare_docs_queries": ["Vectorize query with metadata filter", "AIChatAgent with SQLite DO persistence"],
+          "steps": [
+            {
+              "number": 3.1,
+              "title": "Manual Ingestion Tool",
+              "technical_requirements": ["Build script to chunk PDF text and upsert to Vectorize index"],
+              "success_criteria": ["Vectorize info shows populated vectors"]
+            },
+            {
+              "number": 3.2,
+              "title": "KitchenOrchestrator Class",
+              "technical_requirements": ["Extend AIChatAgent", "Implement @callable tailorRecipe(recipeId, applianceId)"],
+              "success_criteria": ["Streaming response provides customized instructions"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase_number": 4,
+      "phase_title": "PDF Generation Service",
+      "description": "Use Browser Rendering to print 8.5x11 recipe cards.",
+      "success_criteria": ["API returns a valid PDF buffer optimized for print"],
+      "tasks": [
+        {
+          "task_number": 4,
+          "status": "not_started",
+          "agent_assigned": "Architect",
+          "task_title": "Browser Print Engine",
+          "cloudflare_docs_queries": ["Workers Browser Rendering page.pdf options"],
+          "steps": [
+            {
+              "number": 4.1,
+              "title": "Print Route Implementation",
+              "technical_requirements": ["Use env.MY_BROWSER.fetch()", "Pass 'format: Letter' and 'printBackground: true'"],
+              "success_criteria": ["PDF contains 2 pages (front/back)"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
