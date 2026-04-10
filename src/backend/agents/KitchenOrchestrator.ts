@@ -1,6 +1,6 @@
 // @ts-nocheck
 import puppeteer from "@cloudflare/puppeteer";
-import { AIChatAgent } from "agents";
+import { Agent as AIChatAgent } from "agents";
 
 import type { Bindings } from "../api/index";
 
