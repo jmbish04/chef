@@ -50,7 +50,7 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
 
   async query_appliance_instructions({
     query,
-    _appliance_id,
+    appliance_id: _appliance_id,
   }: {
     query: string;
     appliance_id: string;
