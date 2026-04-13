@@ -3,11 +3,9 @@ import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
-import type { Bindings, Variables } from "../index";
-
 import { inventory } from "../../db/schema";
 
-export const inventoryRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+export const inventoryRouter = new OpenAPIHono<{ Bindings: Env }>();
 
 const _InventorySchema = z.object({
   id: z.number().openapi({ example: 1 }),

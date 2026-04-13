@@ -13,10 +13,15 @@ export default defineConfig({
   srcDir: "./src/frontend",
   base,
   output: "server",
+
   adapter: cloudflare({
     imageService: "cloudflare",
     platformProxy: {
       enabled: true,
+    },
+    workerEntryPoint: {
+      namedExports: ["KitchenOrchestrator"],
+      path: "src/_worker.ts",
     },
   }),
   integrations: [react()],

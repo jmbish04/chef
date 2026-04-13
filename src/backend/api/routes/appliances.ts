@@ -3,11 +3,9 @@ import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
-import type { Bindings, Variables } from "../index";
-
 import { appliances } from "../../db/schema";
 
-export const appliancesRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+export const appliancesRouter = new OpenAPIHono<{ Bindings: Env }>();
 
 const ApplianceSchema = z.object({
   id: z.number().openapi({ example: 1 }),

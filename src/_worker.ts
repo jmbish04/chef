@@ -1,34 +1,41 @@
 // @ts-nocheck
-/**
- * @fileoverview Cloudflare Workers entry point
- *
- * This file integrates the Hono API with Astro SSR.
- */
+import type { SSRManifest } from "astro";
 
-import type { ExportedHandler } from "@cloudflare/workers-types";
+import { App } from "astro/app";
 
-import type { Bindings } from "./backend/api/index";
+import honoApp, { KitchenOrchestrator } from "./backend/index";
 
-import { app as honoApp } from "./backend/api/index";
+export { KitchenOrchestrator };
 
-const handler: ExportedHandler<Bindings> = {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+export function createExports(manifest: SSRManifest) {
+  const app = new App(manifest);
 
-    // Handle API routes with Hono
-    if (
-      url.pathname.startsWith("/api/") ||
-      url.pathname === "/openapi.json" ||
-      url.pathname === "/swagger" ||
-      url.pathname === "/scalar" ||
-      url.pathname === "/docs"
-    ) {
-      return honoApp.fetch(request, env, ctx);
-    }
+  return {
+    KitchenOrchestrator,
+    default: {
+      async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
+        const url = new URL(request.url);
 
-    // Let Astro handle everything else via the ASSETS binding
-    return env.ASSETS.fetch(request);
-  },
-};
+        // 1. Backend API Routing Interception
+        if (
+          url.pathname.startsWith("/api/") ||
+          url.pathname === "/openapi.json" ||
+          url.pathname === "/swagger" ||
+          url.pathname === "/scalar" ||
+          url.pathname === "/docs" ||
+          url.pathname === "/context"
+        ) {
+          return honoApp.fetch(request, env, ctx);
+        }
 
-export default handler;
+        // 2. Astro SSR Fallback
+        if (app.match(request)) {
+          return app.render(request, { env });
+        }
+
+        // 3. Static Asset Fallback
+        return env.ASSETS.fetch(request);
+      },
+    },
+  };
+}

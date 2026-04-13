@@ -7,12 +7,10 @@ import { desc, eq, and, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 
-import type { Bindings, Variables } from "../index";
-
 import { dashboardMetrics } from "../../db/schema";
 import { authMiddleware } from "../middleware/auth";
 
-const dashboardRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const dashboardRouter = new Hono<{ Bindings: Env }>();
 
 // Apply auth middleware to all routes
 dashboardRouter.use("*", authMiddleware);

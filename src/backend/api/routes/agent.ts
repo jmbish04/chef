@@ -1,9 +1,7 @@
 // @ts-nocheck
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 
-import type { Bindings, Variables } from "../index";
-
-export const agentRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+export const agentRouter = new OpenAPIHono<{ Bindings: Env }>();
 
 const agentChatRoute = createRoute({
   method: "post",
