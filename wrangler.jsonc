@@ -33,15 +33,14 @@
   "kv_namespaces": [
     {
       "binding": "SESSION",
-      "id": "local-session",
+      "id": "2ec2b50f79074013ad7d4dec27e58f5e",
     },
   ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "chef-db",
-      "database_id": "auto",
-
+      "database_id": "126adffd-53c1-40f8-a8be-db8b909d383d",
       "migrations_dir": "drizzle",
     },
   ],
@@ -122,10 +121,17 @@
       "secret_name": "OPENAI_API_KEY",
     },
   ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "menuforge-appliances"
+    }
+  ],
+  // wrangler vectorize create chef-appliance-manuals --preset @cf/baai/bge-large-en-v1.5
   "vectorize": [
     {
       "binding": "VECTOR_INDEX",
-      "index_name": "appliance-manuals",
+      "index_name": "chef-appliance-manuals",
     },
   ],
   "browser": {
