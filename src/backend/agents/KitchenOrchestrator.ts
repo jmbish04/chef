@@ -47,7 +47,6 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
       return "Failed to ingest manual: " + String(e);
     }
   }
-
   async query_appliance_instructions({
     query,
     appliance_id: _appliance_id,
