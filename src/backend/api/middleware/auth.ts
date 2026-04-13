@@ -8,8 +8,6 @@ import type { Context, Next } from "hono";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
-import type { Bindings, Variables } from "../index";
-
 import { sessions, users } from "../../db/schema";
 
 export async function authMiddleware(

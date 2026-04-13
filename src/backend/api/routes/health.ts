@@ -7,11 +7,9 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 
-import type { Bindings } from "../index";
-
 import { healthChecks } from "../../db/schema";
 
-const healthRouter = new Hono<{ Bindings: Bindings }>();
+const healthRouter = new Hono<{ Bindings: Env }>();
 
 // GET /api/health
 healthRouter.get("/", async (c) => {

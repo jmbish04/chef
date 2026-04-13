@@ -2,8 +2,6 @@
 import puppeteer from "@cloudflare/puppeteer";
 import { Agent as AIChatAgent } from "agents";
 
-import type { Bindings } from "../api/index";
-
 export class KitchenOrchestrator extends AIChatAgent<Bindings> {
   async onStart() {
     // Implement internal SQLite database setup for Agent's persistent memory

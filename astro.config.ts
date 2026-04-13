@@ -20,6 +20,7 @@ export default defineConfig({
       enabled: true,
     },
     workerEntryPoint: {
+      namedExports: ["KitchenOrchestrator"],
       path: "src/_worker.ts",
     },
   }),

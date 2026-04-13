@@ -5,8 +5,6 @@
  * This file sets up the main Hono application with all API routes and middleware.
  */
 
-import type { D1Database, Ai, VectorizeIndex, Fetcher } from "@cloudflare/workers-types";
-
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { apiReference } from "@scalar/hono-api-reference";
@@ -26,26 +24,7 @@ import { openapiRouter } from "./routes/openapi";
 import { recipesRouter } from "./routes/recipes";
 import { threadsRouter } from "./routes/threads";
 
-export type Bindings = {
-  DB: D1Database;
-  AI: Ai;
-  MANUALS_INDEX: VectorizeIndex;
-  BROWSER: Fetcher;
-  KitchenOrchestrator: DurableObjectNamespace;
-  AI_GATEWAY_TOKEN?: string;
-  CLOUDFLARE_ACCOUNT_ID?: string;
-};
-
-export type Variables = {
-  userId?: number;
-  user?: {
-    id: number;
-    email: string;
-    name: string;
-  };
-};
-
-const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+const app = new OpenAPIHono<{ Bindings: Env }>();
 
 // Middleware
 app.use("*", cors());

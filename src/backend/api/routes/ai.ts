@@ -7,11 +7,9 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
 
-import type { Bindings, Variables } from "../index";
-
 import { authMiddleware } from "../middleware/auth";
 
-const aiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const aiRouter = new Hono<{ Bindings: Env }>();
 
 // Apply auth middleware
 aiRouter.use("*", authMiddleware);
@@ -142,7 +140,7 @@ aiRouter.post(
     const { text } = await c.req.json();
 
     try {
-      const response = await c.env.AI.run("@cf/baai/bge-large-en-v1.5", {
+      const response = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
         text,
       });
 

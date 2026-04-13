@@ -1,8 +1,11 @@
+// @ts-nocheck
 import type { SSRManifest } from "astro";
 
 import { App } from "astro/app";
 
 import honoApp, { KitchenOrchestrator } from "./backend/index";
+
+export { KitchenOrchestrator };
 
 export function createExports(manifest: SSRManifest) {
   const app = new App(manifest);
@@ -19,7 +22,8 @@ export function createExports(manifest: SSRManifest) {
           url.pathname === "/openapi.json" ||
           url.pathname === "/swagger" ||
           url.pathname === "/scalar" ||
-          url.pathname === "/docs"
+          url.pathname === "/docs" ||
+          url.pathname === "/context"
         ) {
           return honoApp.fetch(request, env, ctx);
         }

@@ -7,12 +7,10 @@ import { desc, eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 
-import type { Bindings, Variables } from "../index";
-
 import { notifications } from "../../db/schema";
 import { authMiddleware } from "../middleware/auth";
 
-const notificationsRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const notificationsRouter = new Hono<{ Bindings: Env }>();
 
 // Apply auth middleware
 notificationsRouter.use("*", authMiddleware);
