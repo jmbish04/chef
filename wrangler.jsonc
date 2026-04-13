@@ -1,5 +1,5 @@
 {
-  "name": "chef-os",
+  "name": "chef",
   "main": "src/backend/index.ts",
   "compatibility_date": "2026-04-09",
   "compatibility_flags": ["nodejs_compat"],
