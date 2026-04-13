@@ -48,7 +48,7 @@ function Button({
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
   if (props.asChild) {
-    const { asChild, ...rest } = props;
+    const { asChild: _asChild, ...rest } = props;
     return (
       <Slot
         data-slot="button"

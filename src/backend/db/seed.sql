@@ -1,7 +1,7 @@
 -- Seed data for the database
 
 -- Insert demo users (password: "password123" hashed with SHA-256)
-INSERT INTO users (email, password_hash, name) VALUES
+INSERT OR IGNORE INTO users (email, password_hash, name) VALUES
 ('admin@example.com', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Admin User'),
 ('demo@example.com', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Demo User');
 

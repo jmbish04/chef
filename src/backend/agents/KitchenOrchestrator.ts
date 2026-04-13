@@ -1,7 +1,6 @@
 // @ts-nocheck
 import puppeteer from "@cloudflare/puppeteer";
-import { AIChatAgent } from "agents";
-import { z } from "zod";
+import { Agent as AIChatAgent } from "agents";
 
 import type { Bindings } from "../api/index";
 
@@ -48,10 +47,9 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
       return "Failed to ingest manual: " + String(e);
     }
   }
-
   async query_appliance_instructions({
     query,
-    appliance_id,
+    appliance_id: _appliance_id,
   }: {
     query: string;
     appliance_id: string;

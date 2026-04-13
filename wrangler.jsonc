@@ -1,7 +1,7 @@
 {
-  "name": "core-template-cfw-assets-astro-shadcn",
-  "main": "dist/_worker.js/index.js",
-  "compatibility_date": "2026-03-09",
+  "name": "chef-os",
+  "main": "src/backend/index.ts",
+  "compatibility_date": "2026-04-09",
   "compatibility_flags": ["nodejs_compat"],
   "upload_source_maps": true,
   "workers_dev": true,
@@ -25,17 +25,23 @@
     "binding": "ASSETS",
     "directory": "./dist",
     "run_worker_first": true,
-    "not_found_handling": "none",
+    "not_found_handling": "single-page-application",
   },
   "ai": {
     "binding": "AI",
   },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "local-session",
+    },
+  ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "core-template-cfw-assets-astro-shadcn",
-      "database_id": "d126139f-6f57-49d2-bbc4-d20bbd46bbf4",
-      "preview_database_id": "d126139f-6f57-49d2-bbc4-d20bbd46bbf4",
+      "database_name": "chef-db",
+      "database_id": "auto",
+
       "migrations_dir": "drizzle",
     },
   ],
@@ -118,17 +124,17 @@
   ],
   "vectorize": [
     {
-      "binding": "MANUALS_INDEX",
-      "index_name": "manuals-index",
+      "binding": "VECTOR_INDEX",
+      "index_name": "appliance-manuals",
     },
   ],
   "browser": {
-    "binding": "BROWSER",
+    "binding": "MY_BROWSER",
   },
   "durable_objects": {
     "bindings": [
       {
-        "name": "KitchenOrchestrator",
+        "name": "KitchenAgent",
         "class_name": "KitchenOrchestrator",
       },
     ],
@@ -136,7 +142,10 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["KitchenOrchestrator"],
+      "new_sqlite_classes": ["KitchenAgent"],
     },
   ],
+  "vars": {
+    "AI_GATEWAY_NAME": "default-gateway",
+  },
 }
