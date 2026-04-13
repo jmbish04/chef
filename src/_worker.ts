@@ -9,7 +9,7 @@ export function createExports(manifest: SSRManifest) {
 
   return {
     default: {
-      async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
+      async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
 
         // 1. Backend API Routing Interception
