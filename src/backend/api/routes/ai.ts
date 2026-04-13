@@ -142,7 +142,7 @@ aiRouter.post(
     const { text } = await c.req.json();
 
     try {
-      const response = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      const response = await c.env.AI.run("@cf/baai/bge-large-en-v1.5", {
         text,
       });
 
