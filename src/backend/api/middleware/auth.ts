@@ -8,10 +8,12 @@ import type { Context, Next } from "hono";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
+import type { Bindings, Variables } from "../index";
+
 import { sessions, users } from "../../db/schema";
 
 export async function authMiddleware(
-  c: Context<{ Bindings: Env}>,
+  c: Context<{ Bindings: Bindings; Variables: Variables }>,
   next: Next,
 ) {
   const authHeader = c.req.header("Authorization");

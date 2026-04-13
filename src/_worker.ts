@@ -2,14 +2,15 @@ import type { SSRManifest } from "astro";
 
 import { App } from "astro/app";
 
-import honoApp from "./backend/index";
+import honoApp, { KitchenOrchestrator } from "./backend/index";
 
 export function createExports(manifest: SSRManifest) {
   const app = new App(manifest);
 
   return {
+    KitchenOrchestrator,
     default: {
-      async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+      async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
 
         // 1. Backend API Routing Interception
@@ -18,8 +19,7 @@ export function createExports(manifest: SSRManifest) {
           url.pathname === "/openapi.json" ||
           url.pathname === "/swagger" ||
           url.pathname === "/scalar" ||
-          url.pathname === "/docs" ||
-          url.pathname === "/context"
+          url.pathname === "/docs"
         ) {
           return honoApp.fetch(request, env, ctx);
         }

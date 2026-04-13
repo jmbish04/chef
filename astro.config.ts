@@ -13,6 +13,7 @@ export default defineConfig({
   srcDir: "./src/frontend",
   base,
   output: "server",
+
   adapter: cloudflare({
     imageService: "cloudflare",
     platformProxy: {

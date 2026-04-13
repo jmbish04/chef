@@ -1,6 +1,6 @@
 {
   "name": "chef",
-  "main": "dist/_worker.js/index.js",
+  "main": "src/entry.ts",
   "compatibility_date": "2026-04-09",
   "compatibility_flags": ["nodejs_compat"],
   "upload_source_maps": true,
