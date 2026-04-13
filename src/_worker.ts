@@ -18,7 +18,8 @@ export function createExports(manifest: SSRManifest) {
           url.pathname === "/openapi.json" ||
           url.pathname === "/swagger" ||
           url.pathname === "/scalar" ||
-          url.pathname === "/docs"
+          url.pathname === "/docs" ||
+          url.pathname === "/context"
         ) {
           return honoApp.fetch(request, env, ctx);
         }
