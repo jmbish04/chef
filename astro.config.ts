@@ -18,6 +18,9 @@ export default defineConfig({
     platformProxy: {
       enabled: true,
     },
+    workerEntryPoint: {
+      path: "src/_worker.ts",
+    },
   }),
   integrations: [react()],
   vite: {
