@@ -26,7 +26,7 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
         chunks.push(manual_text.substring(i, i + chunkSize));
       }
 
-      const embeddings = await this.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      const embeddings = await this.env.AI.run("@cf/baai/bge-large-en-v1.5", {
         text: chunks,
       });
 
@@ -55,7 +55,7 @@ export class KitchenOrchestrator extends AIChatAgent<Bindings> {
     appliance_id: string;
   }) {
     try {
-      const embedding = await this.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      const embedding = await this.env.AI.run("@cf/baai/bge-large-en-v1.5", {
         text: [query],
       });
 
