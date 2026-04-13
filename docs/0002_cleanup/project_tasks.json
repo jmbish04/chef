@@ -1,0 +1,142 @@
+{  
+  "project\_name": "chef",  
+  "generated\_date": "2026-04-12T10:00:00Z",  
+  "total\_phases": 5,  
+  "phases": \[  
+    {  
+      "phase\_number": 1,  
+      "phase\_title": "Wrangler & Schema Synchronization",  
+      "description": "Apply the provided wrangler config modifications and sync the database.",  
+      "success\_criteria": \["Wrangler types generate successfully", "D1 migrations apply locally"\],  
+      "implementation\_plan": {  
+        "title": "Config Update",  
+        "description": "Add new DO classes to wrangler.jsonc.",  
+        "architecture": {  
+          "explanation": "Extending existing config.",  
+          "mermaid\_diagram": "graph TD; A\[wrangler.jsonc\] \--\> B\[D1: chef-db\]"  
+        },  
+        "proposed\_changes": \[  
+          {  
+            "category": "Config",  
+            "files": \[  
+              {  
+                "action": "MODIFY",  
+                "file\_path": "wrangler.jsonc",  
+                "instructions": \[  
+                  "Add \`BarcodeAgent\` and \`ApplianceChatAgent\` to \`durable\_objects.bindings\`.",  
+                  "Add a \`v2\` migration tag for \`new\_sqlite\_classes: \[\\"BarcodeAgent\\", \\"ApplianceChatAgent\\"\]\`."  
+                \]  
+              }  
+            \]  
+          }  
+        \],  
+        "verification\_plan": {  
+          "automated\_tests": \[{"command": "pnpm run cf-typegen", "expected\_outcome": "worker-configuration.d.ts updated"}\],  
+          "manual\_verification": \["Check typegen output for new DOs"\]  
+        }  
+      },  
+      "tasks": \[  
+        {  
+          "task\_number": 1,  
+          "status": "not\_started",  
+          "agent\_assigned": "Architect Agent",  
+          "task\_title": "Update Wrangler Config",  
+          "task\_description": "Modify wrangler.jsonc and run typegen.",  
+          "task\_dependencies": \[\],  
+          "cloudflare\_docs\_queries": \["Durable Objects SQLite migrations tags configuration"\],  
+          "steps": \[  
+            {"number": 1.1, "title": "Update wrangler", "status": "not\_started", "technical\_requirements": \["Keep existing IDs intact"\], "success\_criteria": \["File updated"\]}  
+          \],  
+          "requirements": \["Use pnpm"\],  
+          "success\_criteria": \["Types generated"\]  
+        }  
+      \]  
+    },  
+    {  
+      "phase\_number": 2,  
+      "phase\_title": "Hono API & Agents Backend",  
+      "description": "Implement the core routes and Cloudflare Agents.",  
+      "success\_criteria": \["/openapi.json serves valid spec", "Agents compile"\],  
+      "implementation\_plan": {  
+        "title": "Backend Logic",  
+        "description": "Hero gen, inventory WS, RAG agent.",  
+        "architecture": {"explanation": "Hono to DOs", "mermaid\_diagram": "graph TD; API--\>DO"},  
+        "proposed\_changes": \[  
+          {  
+            "category": "API",  
+            "files": \[  
+              {  
+                "action": "NEW",  
+                "file\_path": "src/backend/api/routes/hero.ts",  
+                "instructions": \["Check dashboardMetrics for 12h cache, call SDXL via env.AI"\]  
+              },  
+              {  
+                "action": "NEW",  
+                "file\_path": "src/backend/agents/BarcodeAgent.ts",  
+                "instructions": \["Extend Agent, handle WS, write to DB"\]  
+              },  
+              {  
+                "action": "NEW",  
+                "file\_path": "src/backend/agents/ApplianceChatAgent.ts",  
+                "instructions": \["Extend AIChatAgent, use VECTOR\_INDEX"\]  
+              }  
+            \]  
+          }  
+        \],  
+        "verification\_plan": {"automated\_tests": \[\], "manual\_verification": \["Run wrangler dev"\]}  
+      },  
+      "tasks": \[  
+        {  
+          "task\_number": 2,  
+          "status": "not\_started",  
+          "agent\_assigned": "AI/Agent Agent",  
+          "task\_title": "Build Agents & APIs",  
+          "task\_description": "Create the Hono routes and DO classes.",  
+          "task\_dependencies": \["1"\],  
+          "cloudflare\_docs\_queries": \["Cloudflare Workers AI Stable Diffusion XL", "Vectorize query from Worker"\],  
+          "steps": \[{"number": 2.1, "title": "Agents", "status": "not\_started", "technical\_requirements": \["Export from index.ts"\], "success\_criteria": \["Agents created"\]}\],  
+          "requirements": \["Use @cloudflare/agents"\],  
+          "success\_criteria": \["Routes registered in Hono"\]  
+        }  
+      \]  
+    },  
+    {  
+      "phase\_number": 3,  
+      "phase\_title": "Frontend Integration",  
+      "description": "Wire up Astro and assistant-ui to the backend.",  
+      "success\_criteria": \["Pages render with data"\],  
+      "implementation\_plan": {  
+        "title": "Astro UI",  
+        "description": "Dark theme shadcn pages.",  
+        "architecture": {"explanation": "Astro SSR", "mermaid\_diagram": "graph TD; Astro--\>Hono"},  
+        "proposed\_changes": \[  
+          {  
+            "category": "UI",  
+            "files": \[  
+              {  
+                "action": "MODIFY",  
+                "file\_path": "src/frontend/pages/index.astro",  
+                "instructions": \["Fetch hero image on load from Hono API"\]  
+              }  
+            \]  
+          }  
+        \],  
+        "verification\_plan": {"automated\_tests": \[\], "manual\_verification": \["Verify dark theme"\]}  
+      },  
+      "tasks": \[  
+        {  
+          "task\_number": 3,  
+          "status": "not\_started",  
+          "agent\_assigned": "Frontend Agent",  
+          "task\_title": "Build UI Pages",  
+          "task\_description": "Implement the requested views.",  
+          "task\_dependencies": \["2"\],  
+          "cloudflare\_docs\_queries": \["Astro Cloudflare adapter assets configuration"\],  
+          "steps": \[{"number": 3.1, "title": "Build Pages", "status": "not\_started", "technical\_requirements": \["Use assistant-ui"\], "success\_criteria": \["Pages built"\]}\],  
+          "requirements": \["Dark theme default"\],  
+          "success\_criteria": \["Site navigable"\]  
+        }  
+      \]  
+    }  
+  \]  
+}  
