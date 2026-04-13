@@ -148,7 +148,7 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["KitchenAgent"],
+      "new_sqlite_classes": ["KitchenOrchestrator"],
     },
   ],
   "vars": {
